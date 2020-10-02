@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pokemon/model/DarkThemeProvider.dart';
 import 'package:pokemon/model/pokehub.dart';
 import 'package:pokemon/screens/details_screen.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -33,10 +35,16 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         title: Text("Pokemon"),
+        actions: [
+              IconButton(icon: themeChange.darkTheme?Icon(Icons.lightbulb): Icon(Icons.nightlight_round), onPressed: (){
+                themeChange.darkTheme = !themeChange.darkTheme;
+              })
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
